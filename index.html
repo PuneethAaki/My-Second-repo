@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agriculture Dashboard</title>
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    /* Reset and Base */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      background: #f4f6f8;
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      background: #2e7d32;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* Dashboard Grid */
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    /* Card Styles */
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .card .value {
+      font-size: 2rem;
+      color: #2e7d32;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #e0e0e0;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      .card .value {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🌱 Agriculture Monitoring Dashboard</h1>
+    <p>Track crop yields, weather trends, and soil conditions</p>
+  </header>
+
+  <main class="dashboard">
+    <!-- Overview Cards -->
+    <div class="card">
+      <h3>🌾 Crop Yield</h3>
+      <div class="value">1,250 kg</div>
+    </div>
+
+    <div class="card">
+      <h3>💧 Soil Moisture</h3>
+      <div class="value">42%</div>
+    </div>
+
+    <div class="card">
+      <h3>🌡️ Temperature</h3>
+      <div class="value">28°C</div>
+    </div>
+
+    <div class="card">
+      <h3>🌧️ Rainfall</h3>
+      <div class="value">12 mm</div>
+    </div>
+
+    <!-- Charts -->
+    <div class="card">
+      <h3>🌤️ Weather Trend (Past 7 Days)</h3>
+      <canvas id="weatherChart"></canvas>
+    </div>
+
+    <div class="card">
+      <h3>📈 Crop Production (Monthly)</h3>
+      <canvas id="cropChart"></canvas>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Agriculture Dashboard. All rights reserved.
+  </footer>
+
+  <script>
+    // Weather Chart
+    const ctxWeather = document.getElementById('weatherChart').getContext('2d');
+    new Chart(ctxWeather, {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+          label: 'Temperature (°C)',
+          data: [25, 27, 26, 28, 29, 30, 28],
+          backgroundColor: 'rgba(76, 175, 80, 0.2)',
+          borderColor: '#4caf50',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true }
+        },
+        scales: {
+          y: {
+            beginAtZero: false
+          }
+        }
+      }
+    });
+
+    // Crop Production Chart
+    const ctxCrop = document.getElementById('cropChart').getContext('2d');
+    new Chart(ctxCrop, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Production (kg)',
+          data: [300, 450, 500, 400, 600, 700],
+          backgroundColor: '#66bb6a'
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
